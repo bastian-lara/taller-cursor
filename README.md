@@ -5,7 +5,6 @@ Sandbox Django/Docker para probar autenticación (login RUT + password reset) y 
 ## Arranque
 
 ```bash
-cd C:\Users\D4r4r\OneDrive\Escritorio\ist\PROTOTIPO
 docker compose -f docker/docker-compose-dev.yml up --build
 ```
 
