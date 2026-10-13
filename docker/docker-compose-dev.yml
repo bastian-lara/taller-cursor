@@ -1,0 +1,74 @@
+name: prototipo
+services:
+
+  database:
+    image: mysql:8.0
+    container_name: db-prototipo
+    ports:
+      - 3210:3306
+    env_file:
+      - ../docker/.env
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - db_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  app:
+    container_name: prototipo
+    restart: always
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-dev
+    networks:
+      - db_network
+      - web_network
+    env_file:
+      - ../docker/.env
+    depends_on:
+      - database
+    volumes:
+      - ../src:/usr/src/app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  nginx:
+    container_name: nginx-prototipo
+    restart: always
+    image: "nginx:latest"
+    ports:
+      - "5091:5085"
+    volumes:
+      - ../nginx/docker:/etc/nginx/conf.d
+      - ../src/staticfiles:/staticfiles
+    networks:
+      - web_network
+    depends_on:
+      - app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  db_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.250.2.0/29
+  web_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.250.2.8/29
+
+volumes:
+  mysql_data:

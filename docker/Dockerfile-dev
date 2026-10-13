@@ -1,0 +1,34 @@
+FROM python:3.13-slim
+
+WORKDIR /usr/src/app
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONWARNINGS=default
+
+COPY requirements.txt .
+
+RUN apt-get update -yqq && \
+    apt-get install -yqq \
+        gcc \
+        pkg-config \
+        default-libmysqlclient-dev \
+        build-essential \
+        python3-dev && \
+    apt-get clean
+
+RUN ln -fs /usr/share/zoneinfo/America/Santiago /etc/localtime
+RUN dpkg-reconfigure -f noninteractive tzdata
+
+# install python dependencies
+RUN pip install --upgrade pip
+RUN pip install --progress-bar off --no-cache-dir -r requirements.txt
+
+COPY src/ .
+COPY docker/.env .env
+COPY docker/entrypoint-dev.sh /entrypoint-dev.sh
+RUN sed -i 's/\r$//' /entrypoint-dev.sh && chmod +x /entrypoint-dev.sh
+
+ENTRYPOINT ["/entrypoint-dev.sh"]
+CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
