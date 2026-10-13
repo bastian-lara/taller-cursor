@@ -1,0 +1,26 @@
+{% load i18n static admin_datta %}
+
+<nav class="pcoded-navbar ist-sidebar">
+  <div class="navbar-wrapper">
+    <div class="navbar-brand header-logo ist-sidebar-header">
+      <a href="{% url 'index' %}" class="b-brand ist-sidebar-brand">
+        <div class="ist-sidebar-brand-logo">
+          <img src="{% static 'assets/images/logo.png' %}" alt="Logo IST">
+          <span class="ist-sidebar-module-icon" aria-hidden="true"><i class="feather icon-clipboard"></i></span>
+        </div>
+        <div class="ist-sidebar-brand-text">
+          <span class="b-title">PROTOTIPO</span>
+          <span class="ist-sidebar-subtitle">IST</span>
+        </div>
+      </a>
+      <a class="mobile-menu" id="mobile-collapse" href="#" role="button" aria-label="Abrir menú"><span></span></a>
+    </div>
+    <div class="navbar-content scroll-div">
+      <ul class="nav pcoded-inner-navbar">
+        <li class="nav-item pcoded-menu-caption">
+          <label>Navegaci&oacute;n</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

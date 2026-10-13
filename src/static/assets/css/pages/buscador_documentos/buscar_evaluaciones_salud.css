@@ -1,0 +1,27 @@
+#results_table th:nth-child(1), #results_table td:nth-child(1) { 
+    width: 3%; 
+}   /* accordion */
+#results_table th:nth-child(2), #results_table td:nth-child(2) { 
+    width: 10%; 
+}  /* RUT o Pasaporte */
+#results_table th:nth-child(3), #results_table td:nth-child(3) { 
+    width: 20%; 
+}  /* Nombre */
+#results_table th:nth-child(4), #results_table td:nth-child(4) { 
+    width: 20%; 
+}  /* Email */
+#results_table th:nth-child(5), #results_table td:nth-child(5) { 
+    width: 12%; 
+}  /* Fecha */
+#results_table th:nth-child(6), #results_table td:nth-child(6) { 
+    width: 10%; 
+}  /* Estado */
+#results_table th:nth-child(7), #results_table td:nth-child(7) { 
+    width: 9%; 
+}   /* Enviar */
+#results_table th:nth-child(8), #results_table td:nth-child(8) { 
+    width: 9%; 
+}   /* Responder */
+#results_table th:nth-child(9), #results_table td:nth-child(9) { 
+    width: 7%; 
+}   /* Eliminar */

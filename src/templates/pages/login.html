@@ -1,0 +1,103 @@
+{% extends 'layouts/base-auth.html' %}
+{% load static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'assets/css/pages/login.css' %}?v=20260901f">
+{% endblock extrastyle %}
+{% block content %}
+<div class="auth-wrapper ist-login">
+    <div class="ist-login-shell">
+        <aside class="ist-login-brand" aria-label="PROTOTIPO IST">
+            <div class="ist-login-brand-inner">
+                <img
+                    class="ist-login-logo"
+                    src="{% static 'assets/images/IST_tu-mutualidad.png' %}"
+                    alt="IST tu mutualidad"
+                >
+                <h1 class="ist-login-title">
+                    <span class="ist-login-title-icon" aria-hidden="true">
+                        <i class="feather icon-clipboard"></i>
+                    </span>
+                    <span class="ist-login-title-text">
+                        <span class="ist-login-title-accent">PROTOTIPO</span>
+                    </span>
+                </h1>
+                <p class="ist-login-brand-org">Instituto de Seguridad del Trabajo</p>
+                <p class="ist-login-brand-lead">
+                    Sandbox de autenticaci&oacute;n y cascar&oacute;n administrativo.
+                </p>
+            </div>
+        </aside>
+
+        <section class="ist-login-panel">
+            <div class="ist-login-panel-header">
+                <h2>Iniciar sesi&oacute;n</h2>
+                <p>Ingrese su RUT con gui&oacute;n y sin puntos.</p>
+            </div>
+
+            <form action="{% url 'login_view' %}" method="post" class="ist-login-form" autocomplete="off">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="ist-login-error" role="alert">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}{% if not forloop.last %}<br>{% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="ist-login-field">
+                    <label class="form-label" for="id_username">RUT</label>
+                    <i class="feather icon-user ist-login-field-icon" aria-hidden="true"></i>
+                    <input
+                        type="text"
+                        name="username"
+                        class="form-control"
+                        placeholder="Ej: 12345678-9"
+                        autocapitalize="none"
+                        autocomplete="username"
+                        maxlength="150"
+                        required
+                        id="id_username"
+                    >
+                </div>
+                <div id="rut_error" style="display: none;">
+                    <span class="ist-login-error d-block">
+                        El RUT ingresado es inv&aacute;lido.
+                    </span>
+                </div>
+
+                <div class="ist-login-field">
+                    <label class="form-label" for="id_password">Contrase&ntilde;a</label>
+                    <i class="feather icon-lock ist-login-field-icon" aria-hidden="true"></i>
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Ingrese su contrase&ntilde;a"
+                        required
+                        id="id_password"
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <div class="ist-login-row">
+                    <label class="ist-login-remember" for="remember_me">
+                        <input type="checkbox" name="remember_me" id="remember_me" checked>
+                        Recordarme
+                    </label>
+                    <a class="ist-login-forgot" href="{% url 'reestablecer_password' %}">¿Olvid&oacute; su contrase&ntilde;a?</a>
+                </div>
+
+                <button type="submit" id="btn_submit" class="ist-login-submit">
+                    Ingresar
+                </button>
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'assets/js/pages/login.js' %}"></script>
+{% endblock extra_js %}

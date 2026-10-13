@@ -1,0 +1,9 @@
+.checkbox-help-text {   
+    margin-left: 15px; 
+}
+.error-text {
+    color: red;
+}
+#imagePreviewContainer {
+    display: none; 
+}

@@ -1,0 +1,85 @@
+{% load static %}
+
+<header class="navbar pcoded-header navbar-expand-lg navbar-light ist-topbar">
+  <div class="m-header">
+    <a class="mobile-menu" id="mobile-collapse1" href="#" role="button" aria-label="Abrir menú"><span></span></a>
+    <a href="{% url 'index' %}" class="b-brand">
+      <div class="b-bg">
+        <img src="{% static 'assets/images/logo.png' %}" alt="Logo IST" style="max-width: 72%;">
+      </div>
+      <span class="b-title">PROTOTIPO</span>
+      <span class="ist-system-identity ist-system-identity--compact" title="PROTOTIPO IST">
+        <span class="ist-system-identity-icon" aria-hidden="true"><i class="feather icon-clipboard"></i></span>
+      </span>
+    </a>
+  </div>
+  <a class="mobile-menu" id="mobile-header" href="#" role="button" aria-label="Más opciones">
+    <i class="feather icon-more-horizontal"></i>
+  </a>
+  <div class="collapse navbar-collapse">
+    <div class="ist-topbar-leading d-none d-lg-flex align-items-center flex-grow-1 min-width-0">
+      <span id="page_title" class="navbar-text"></span>
+      <span class="ist-system-identity ml-2" title="PROTOTIPO IST" role="status">
+        <span class="ist-system-identity-icon" aria-hidden="true"><i class="feather icon-clipboard"></i></span>
+        <span class="ist-system-identity-label">PROTOTIPO</span>
+      </span>
+    </div>
+
+    {% if ENVIRONMENT != "PRODUCTION" %}
+    <span class="ist-env-badge" role="status">
+      <i class="feather icon-alert-triangle" aria-hidden="true"></i>
+      Ambiente {{ ENVIRONMENT_NAME }}
+    </span>
+    {% endif %}
+
+    <ul class="navbar-nav ml-auto">
+      <li>
+        <div class="ist-topbar-actions">
+          <a href="{% url 'index' %}" class="ist-icon-btn" title="Inicio" aria-label="Inicio">
+            <i class="feather icon-home"></i>
+          </a>
+        </div>
+      </li>
+
+      <li>
+        <div class="dropdown drp-user">
+          <a href="#" class="dropdown-toggle ist-user-trigger" data-toggle="dropdown" aria-label="Menú de usuario" role="button">
+            <span class="ist-user-avatar" aria-hidden="true">
+              {% if request.user.first_name %}
+                {{ request.user.first_name|slice:":1" }}{% if request.user.last_name %}{{ request.user.last_name|slice:":1" }}{% endif %}
+              {% else %}
+                {{ request.user.get_username|slice:":2"|upper }}
+              {% endif %}
+            </span>
+            <span class="ist-user-name d-none d-md-inline">
+              {% if request.user.first_name %}
+                {{ request.user.first_name }}{% if request.user.last_name %} {{ request.user.last_name }}{% endif %}
+              {% else %}
+                {{ request.user.get_username }}
+              {% endif %}
+            </span>
+            <i class="feather icon-chevron-down ml-1 d-none d-md-inline" style="font-size:0.85rem;color:var(--ist-nav-muted);"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right profile-notification">
+            <div class="pro-head">
+              {% if request.user.first_name %}
+                {{ request.user.first_name }}{% if request.user.last_name %} {{ request.user.last_name }}{% endif %}
+              {% else %}
+                {{ request.user.get_username }}
+              {% endif %}
+            </div>
+            <ul class="pro-body">
+              <li>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'app_logout' %}" class="dropdown-item" title="Cerrar sesión">
+                  <i class="feather icon-log-out"></i> Cerrar sesi&oacute;n
+                </a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>
