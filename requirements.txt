@@ -1,0 +1,9 @@
+Django==5.2.*
+django-admin-datta==1.0.12
+gunicorn==22.0.0
+mysqlclient==2.2.4
+python-dotenv==1.2.2
+str2bool==1.1
+asgiref==3.8.1
+sqlparse==0.5.4
+tzdata==2024.1
